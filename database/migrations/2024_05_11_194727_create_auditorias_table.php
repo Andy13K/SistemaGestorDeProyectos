@@ -6,24 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateAuditoriasTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('auditorias', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('proyecto_id');
+            $table->timestamp('fecha_auditoria')->useCurrent();
+            $table->string('resultado');
+            $table->text('observaciones')->nullable();
             $table->timestamps();
+
+            $table->foreign('proyecto_id')->references('id')->on('proyectos');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('auditorias');

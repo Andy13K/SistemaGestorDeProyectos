@@ -6,26 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateReportesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('reportes', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('tipo_reporte');
+            $table->date('fecha');
+            $table->json('datos');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('reportes');
     }
 }
+

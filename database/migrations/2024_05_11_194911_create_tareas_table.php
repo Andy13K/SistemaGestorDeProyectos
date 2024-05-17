@@ -6,26 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateTareasTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('tareas', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('nombre');
+            $table->text('descripcion');
+            $table->string('estado');
+            $table->date('fecha_inicio')->nullable();
+            $table->date('fecha_fin')->nullable();
+            $table->unsignedBigInteger('proyecto_id');
             $table->timestamps();
+
+            $table->foreign('proyecto_id')->references('id')->on('proyectos');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('tareas');
     }
 }
+

@@ -6,24 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateAsignacionrecursosTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('asignacionrecursos', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('proyecto_id');
+            $table->unsignedBigInteger('usuario_id');
+            $table->integer('num_computadoras')->default(0);
+            $table->decimal('presupuesto', 10, 2);
+            $table->date('fecha_limite');
             $table->timestamps();
+
+            $table->foreign('proyecto_id')->references('id')->on('proyectos')->onDelete('cascade');
+            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('asignacionrecursos');
