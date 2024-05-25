@@ -62,3 +62,16 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Configuración del Proyecto
+
+### Restaurar la Base de Datos
+
+Para restaurar la base de datos en tu entorno local, sigue estos pasos:
+
+1. Asegúrate de tener MySQL instalado y en funcionamiento.
+2. Crea una nueva base de datos en MySQL:
+   ```sql
+   CREATE DATABASE nombre_de_tu_base_de_datos;
+
+git commit -m "Update README with database restore instructions"
+git push origin main
