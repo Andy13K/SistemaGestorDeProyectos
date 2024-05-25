@@ -2,20 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Proyecto; // Asegúrate de importar el modelo Proyecto
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -23,6 +14,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // Obtén los proyectos de la base de datos
+        $proyectos = Proyecto::all();
+
+        // Pasa los proyectos a la vista
+        return view('home', compact('proyectos'));
     }
 }
