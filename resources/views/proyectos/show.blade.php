@@ -13,13 +13,13 @@
             <strong>Descripción:</strong> {{ $proyecto->descripcion }}
         </div>
         <div>
-            <strong>Categoría:</strong> {{ $proyecto->categoria->nombre }}
+            <strong>Categoría:</strong> {{ $proyecto->categoria->nombre ?? 'No asignado' }}
         </div>
         <div>
-            <strong>Líder:</strong> {{ $proyecto->lider->nombre }}
+            <strong>Líder:</strong> {{ $proyecto->lider->nombre ?? 'No asignado' }}
         </div>
         <div>
-            <strong>Cliente:</strong> {{ $proyecto->cliente->nombre }}
+            <strong>Cliente:</strong> {{ $proyecto->cliente->nombre ?? 'No asignado' }}
         </div>
         <div>
             <strong>Fecha:</strong> {{ $proyecto->fecha }}
@@ -36,4 +36,3 @@
         <a href="{{ route('proyectos.index') }}" class="btn btn-primary">Volver</a>
     </div>
 @endsection
-

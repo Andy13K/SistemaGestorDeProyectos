@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cliente; // Asegúrate de importar el modelo Cliente
 
 class ClienteController extends Controller
 {
@@ -65,3 +66,4 @@ class ClienteController extends Controller
             ->with('success', 'Cliente eliminado con éxito.');
     }
 }
+

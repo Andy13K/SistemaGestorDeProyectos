@@ -9,6 +9,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
@@ -17,53 +19,46 @@
     <!-- Estilos -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
-        /* Estilo del cuerpo de la página */
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: whitesmoke;
             color: #4a5568;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: block;
             min-height: 100vh;
-            overflow: hidden; /* Evita el desplazamiento durante las animaciones */
         }
-        /* Contenido principal */
         .contenido-principal {
             padding: 16px;
             width: 100%;
-            margin-top: 50px; /* Margen para ajustar por el navbar fijo */
-            opacity: 0; /* Asegura que comienza oculto */
+            margin-top: 50px;
+            opacity: 0;
             animation: fade-in 1s ease-out forwards;
         }
-        /* Marca del navbar */
         .marca-navbar {
-            font-size: 21px; /* Tamaño de fuente reducido */
+            font-size: 21px;
             color: black;
             font-weight: bold;
             display: flex;
             align-items: center;
             padding: 10px 15px;
-            opacity: 0; /* Asegura que comienza oculto */
+            opacity: 0;
             animation: slide-in-down 1s ease-out forwards, fade-in 1s ease-out forwards;
             animation-delay: 0.1s;
         }
         .marca-navbar img {
-            height: 60px; /* Tamaño del logo reducido */
+            height: 60px;
             vertical-align: middle;
             margin-right: 10px;
         }
         .titulo-sistema {
             font-size: 24px;
             font-weight: 700;
-            color: #000; /* Negro */
-            margin: 7px 0 0 10px; /* Ajusta la posición hacia abajo */
+            color: #000;
+            margin: 7px 0 0 10px;
             white-space: nowrap;
             overflow: hidden;
             animation: typing 2s steps(40, end), fade-in 2s forwards;
         }
-        /* Estilos de las tarjetas */
         .tarjeta {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
@@ -71,23 +66,23 @@
             margin-bottom: 20px;
             font-family: 'Montserrat', sans-serif;
             cursor: pointer;
-            height: 150px; /* Altura fija para todas las tarjetas */
-            border: none; /* Asegura que no haya borde aplicado */
-            border-radius: 10px; /* Bordes redondeados */
-            background-color: #fff; /* Fondo blanco para un aspecto más limpio */
-            opacity: 0; /* Asegura que comienza oculto */
+            height: 150px;
+            border: none;
+            border-radius: 10px;
+            background-color: #fff;
+            opacity: 0;
             animation: slide-in-up 1s ease-out forwards, fade-in 1s ease-out forwards;
             animation-delay: 0.5s;
         }
         .tarjeta:hover {
             box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.3);
-            transform: translateY(-5px); /* Elevar ligeramente al pasar el cursor */
+            transform: translateY(-5px);
         }
         .encabezado-tarjeta {
             font-size: 20px;
             font-weight: bold;
             text-align: center;
-            border-bottom: none; /* Elimina borde azul */
+            border-bottom: none;
             padding: 15px 5px;
         }
         .cuerpo-tarjeta {
@@ -110,11 +105,10 @@
             max-width: 30%;
             margin: 10px;
             box-sizing: border-box;
-            opacity: 0; /* Asegura que comienza oculto */
+            opacity: 0;
             animation: slide-in-up 1s ease-out forwards, fade-in 1s ease-out forwards;
             animation-delay: 0.5s;
         }
-        /* Estilos del pie de página */
         .pie-pagina {
             width: 100%;
             background-color: #151414;
@@ -123,13 +117,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            z-index: 1000;
             font-family: 'Montserrat', sans-serif;
             color: #fff;
-            opacity: 0; /* Asegura que comienza oculto */
+            opacity: 0;
             animation: fade-in 1s ease-out forwards;
             animation-delay: 1s;
         }
@@ -150,39 +140,35 @@
         .insignia {
             font-family: 'Montserrat', sans-serif;
         }
-        /* Estilos para el enlace de cierre de sesión */
         .enlace-logout {
-            background-color: #68d391; /* Verde pastel */
+            background-color: #68d391;
             color: #ffffff !important;
             border-radius: 5px;
             padding: 8px 15px;
             text-decoration: none;
             margin-left: 15px;
-            opacity: 0; /* Asegura que comienza oculto */
-            animation: slide-in-left 1s ease-out forwards, fade-in 1s ease-out forwards; /* Animaciones añadidas */
+            opacity: 0;
+            animation: slide-in-left 1s ease-out forwards, fade-in 1s ease-out forwards;
             animation-delay: 0.6s;
         }
         .enlace-logout:hover {
-            background-color: #48bb78; /* Verde más oscuro */
+            background-color: #48bb78;
         }
-        /* Estilos del elemento del usuario en el navbar */
         .elemento-usuario {
             display: flex;
             align-items: center;
-            opacity: 0; /* Asegura que comienza oculto */
-            animation: slide-in-left 1s ease-out forwards, fade-in 1s ease-out forwards; /* Animaciones añadidas */
+            opacity: 0;
+            animation: slide-in-left 1s ease-out forwards, fade-in 1s ease-out forwards;
             animation-delay: 0.5s;
         }
         .elemento-usuario .fa-user {
             margin-right: 5px;
         }
-        /* Nuevos estilos para alinear elementos del navbar a la derecha */
         .navbar-nav {
             margin-left: auto;
             display: flex;
             align-items: center;
         }
-        /* Eliminar subrayado azul de los enlaces de las tarjetas */
         a.enlace-tarjeta {
             text-decoration: none;
             color: inherit;
@@ -233,23 +219,34 @@
                 width: 100%;
             }
         }
+        .contenedor-grafica {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            animation: fade-in 1s ease-out forwards;
+            animation-delay: 1s;
+        }
+        .chartjs-title {
+            font-family: 'Montserrat', sans-serif;
+        }
     </style>
 </head>
 <body>
 <div id="app">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top" style="height: 60px;"> <!-- Altura del navbar reducida -->
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top" style="height: 60px;">
         <div class="container">
             <span class="marca-navbar">
                 <img src="{{ asset('image/SGPLOGO.jpeg') }}" alt="Logo">
-                <!-- Ajustar la posición del título -->
                 <span class="titulo-sistema">Sistema Gestor de Proyectos</span>
             </span>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Lado derecho del navbar -->
                 <ul class="navbar-nav ml-auto">
                     @auth
                         <li class="nav-item elemento-usuario">
@@ -272,7 +269,6 @@
         </div>
     </nav>
 
-    <!-- Contenido principal -->
     <div class="contenido-principal">
         <main class="py-4">
             <div class="contenedor">
@@ -344,17 +340,79 @@
                         </a>
                     </div>
                 </div>
+                <div class="contenedor-grafica">
+                    <canvas id="myChart"></canvas>
+                </div>
             </div>
         </main>
     </div>
 </div>
 
-<!-- Pie de página -->
 <footer class="pie-pagina">
     <div class="texto-pie-pagina">
         © 2024 Sistema Gestor de Proyectos. Todos los derechos reservados.
     </div>
 </footer>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $.ajax({
+            url: '{{ route("dashboard.data") }}',
+            method: 'GET',
+            success: function(data) {
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Proyectos', 'Usuarios', 'Clientes', 'Asignación de Recursos', 'Categorías de Proyectos', 'Tareas'],
+                        datasets: [{
+                            label: 'Cantidad',
+                            data: data,
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(201, 203, 207, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(201, 203, 207, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Resumen de Datos',
+                                font: {
+                                    family: 'Montserrat',
+                                    size: 20
+                                }
+                            }
+                        }
+                    }
+                });
+            },
+            error: function() {
+                console.error('No se pudieron obtener los datos');
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
+

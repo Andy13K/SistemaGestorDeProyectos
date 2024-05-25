@@ -1,23 +1,29 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
-use App\Models\Proyecto; // Asegúrate de importar el modelo Proyecto
 use Illuminate\Http\Request;
+use App\Models\Proyecto;
+use App\Models\Usuario;
+use App\Models\Cliente;
+use App\Models\Role;
+
+// Actualizar esta línea
+use App\Models\Categoria;
+use App\Models\Tarea;
 
 class HomeController extends Controller
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        // Obtén los proyectos de la base de datos
-        $proyectos = Proyecto::all();
+        $proyectosCount = Proyecto::count();
+        $usuariosCount = Usuario::count();
+        $clientesCount = Cliente::count();
+        $rolesCount = Role::count(); // Actualizar esta línea
+        $categoriasCount = Categoria::count();
+        $tareasCount = Tarea::count();
 
-        // Pasa los proyectos a la vista
-        return view('home', compact('proyectos'));
+        return view('home', compact('proyectosCount', 'usuariosCount', 'clientesCount', 'rolesCount', 'categoriasCount', 'tareasCount'));
     }
 }

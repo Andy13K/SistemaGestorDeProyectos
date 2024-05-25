@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
@@ -27,7 +28,7 @@ class CategoriaController extends Controller
         Categoria::create($request->all());
 
         return redirect()->route('categorias.index')
-            ->with('success', 'Categoria creada con éxito.');
+            ->with('success', 'Categoría creada con éxito.');
     }
 
     public function show(Categoria $categoria)
@@ -50,14 +51,21 @@ class CategoriaController extends Controller
         $categoria->update($request->all());
 
         return redirect()->route('categorias.index')
-            ->with('success', 'Categoria actualizada con éxito.');
+            ->with('success', 'Categoría actualizada con éxito.');
     }
 
     public function destroy(Categoria $categoria)
     {
+        // Verificar si la categoría tiene proyectos asociados antes de eliminar
+        if ($categoria->proyectos()->count() > 0) {
+            return redirect()->route('categorias.index')
+                ->with('error', 'No se puede eliminar la categoría porque tiene proyectos asociados.');
+        }
+
         $categoria->delete();
 
         return redirect()->route('categorias.index')
-            ->with('success', 'Categoria eliminada con éxito.');
+            ->with('success', 'Categoría eliminada con éxito.');
     }
 }
+

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Usuario; // Asegúrate de importar el modelo Usuario
 
 class UsuarioController extends Controller
 {
@@ -26,7 +27,11 @@ class UsuarioController extends Controller
             'rol' => 'required',
         ]);
 
-        Usuario::create($request->all());
+        // Encriptar la contraseña antes de almacenarla
+        $data = $request->all();
+        $data['password'] = bcrypt($data['password']);
+
+        Usuario::create($data);
 
         return redirect()->route('usuarios.index')
             ->with('success', 'Usuario creado con éxito.');
@@ -51,7 +56,16 @@ class UsuarioController extends Controller
             'rol' => 'required',
         ]);
 
-        $usuario->update($request->all());
+        $data = $request->all();
+        if($data['password']) {
+            // Encriptar la contraseña solo si se proporciona una nueva
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            // No actualizar la contraseña si no se proporciona una nueva
+            unset($data['password']);
+        }
+
+        $usuario->update($data);
 
         return redirect()->route('usuarios.index')
             ->with('success', 'Usuario actualizado con éxito.');

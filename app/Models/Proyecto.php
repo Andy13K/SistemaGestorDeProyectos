@@ -9,28 +9,21 @@ class Proyecto extends Model
 {
     use HasFactory;
 
-    protected $table = 'proyectos';
-
     protected $fillable = [
         'nombre',
         'descripcion',
         'categoria_id',
         'lider_id',
         'cliente_id',
-        'fecha',
         'num_computadoras',
         'presupuesto',
+        'fecha',
         'fecha_limite',
     ];
 
     public function categoria()
     {
-        return $this->belongsTo(Categoria::class, 'categoria_id');
-    }
-
-    public function cliente()
-    {
-        return $this->belongsTo(Cliente::class, 'cliente_id');
+        return $this->belongsTo(Categoria::class);
     }
 
     public function lider()
@@ -38,13 +31,9 @@ class Proyecto extends Model
         return $this->belongsTo(Usuario::class, 'lider_id');
     }
 
-    public function recursosAsignados()
+    public function cliente()
     {
-        return $this->belongsToMany(Usuario::class, 'asignacionrecursos', 'proyecto_id', 'usuario_id');
-    }
-
-    public function progreso()
-    {
-        return $this->hasMany(ProgresoProyecto::class, 'proyecto_id');
+        return $this->belongsTo(Cliente::class);
     }
 }
+

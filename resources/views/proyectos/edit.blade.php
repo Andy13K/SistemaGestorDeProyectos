@@ -39,10 +39,6 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="fecha">Fecha</label>
-                <input type="date" class="form-control" id="fecha" name="fecha" value="{{ $proyecto->fecha }}" required>
-            </div>
-            <div class="form-group">
                 <label for="num_computadoras">Número de Computadoras</label>
                 <input type="number" class="form-control" id="num_computadoras" name="num_computadoras" value="{{ $proyecto->num_computadoras }}" required>
             </div>
@@ -58,4 +54,3 @@
         </form>
     </div>
 @endsection
-

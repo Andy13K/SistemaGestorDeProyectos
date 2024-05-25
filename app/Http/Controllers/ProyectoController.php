@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Proyecto;
-
+use App\Models\Categoria;
+use App\Models\Cliente;
+use App\Models\Usuario;
 
 class ProyectoController extends Controller
 {
     public function index()
     {
-        $proyectos = Proyecto::all();
+        $proyectos = Proyecto::with(['categoria', 'lider', 'cliente'])->get();
         return view('proyectos.index', compact('proyectos'));
     }
 
@@ -30,13 +32,15 @@ class ProyectoController extends Controller
             'categoria_id' => 'required|exists:categorias,id',
             'lider_id' => 'required|exists:usuarios,id',
             'cliente_id' => 'required|exists:clientes,id',
-            'fecha' => 'required|date',
             'num_computadoras' => 'required|integer',
             'presupuesto' => 'required|numeric',
             'fecha_limite' => 'nullable|date',
         ]);
 
-        Proyecto::create($request->all());
+        $data = $request->all();
+        $data['fecha'] = now(); // Establecer la fecha actual
+
+        Proyecto::create($data);
 
         return redirect()->route('proyectos.index')
             ->with('success', 'Proyecto creado con éxito.');
@@ -63,13 +67,14 @@ class ProyectoController extends Controller
             'categoria_id' => 'required|exists:categorias,id',
             'lider_id' => 'required|exists:usuarios,id',
             'cliente_id' => 'required|exists:clientes,id',
-            'fecha' => 'required|date',
             'num_computadoras' => 'required|integer',
             'presupuesto' => 'required|numeric',
             'fecha_limite' => 'nullable|date',
         ]);
 
-        $proyecto->update($request->all());
+        $data = $request->except('fecha'); // Excluir la fecha del request
+
+        $proyecto->update($data);
 
         return redirect()->route('proyectos.index')
             ->with('success', 'Proyecto actualizado con éxito.');

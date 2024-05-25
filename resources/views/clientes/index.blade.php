@@ -4,6 +4,11 @@
     <div class="container">
         <h1>Clientes</h1>
         <a href="{{ route('clientes.create') }}" class="btn btn-primary">Crear Cliente</a>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         <table class="table">
             <thead>
             <tr>
@@ -37,4 +42,3 @@
         </table>
     </div>
 @endsection
-

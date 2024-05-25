@@ -5,20 +5,34 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProgresoProyecto extends Model
+class Proyecto extends Model
 {
     use HasFactory;
 
-    protected $table = 'progreso_proyectos';
-
     protected $fillable = [
-        'proyecto_id',
-        'porcentaje',
+        'nombre',
         'descripcion',
+        'categoria_id',
+        'lider_id',
+        'cliente_id',
+        'num_computadoras',
+        'presupuesto',
+        'fecha',
+        'fecha_limite',
     ];
 
-    public function proyecto()
+    public function categoria()
     {
-        return $this->belongsTo(Proyecto::class, 'proyecto_id');
+        return $this->belongsTo(Categoria::class);
+    }
+
+    public function lider()
+    {
+        return $this->belongsTo(Usuario::class, 'lider_id');
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
     }
 }

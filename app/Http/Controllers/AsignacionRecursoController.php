@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\AsignacionRecurso;
+use App\Models\Proyecto;
+use App\Models\Usuario;
 
 class AsignacionRecursoController extends Controller
 {

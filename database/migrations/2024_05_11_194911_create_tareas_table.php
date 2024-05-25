@@ -18,7 +18,7 @@ class CreateTareasTable extends Migration
             $table->unsignedBigInteger('proyecto_id');
             $table->timestamps();
 
-            $table->foreign('proyecto_id')->references('id')->on('proyectos');
+            $table->foreign('proyecto_id')->references('id')->on('proyectos')->onDelete('cascade');
         });
     }
 
