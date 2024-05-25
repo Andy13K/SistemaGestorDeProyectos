@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProyectoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,5 @@ Route::resource('proyectos', ProyectoController::class);
 Route::resource('asignacionrecursos', AsignacionRecursoController::class);
 Route::resource('roles', RoleController::class); // Añade esta línea si aún no tienes la ruta para roles
 Route::resource('tareas', TareaController::class); // Añade esta línea si aún no tienes la ruta para tareas
-
+//rutas recien agregadas por tony
+Route::get('/proyectos', [ProyectoController::class, 'index']);
