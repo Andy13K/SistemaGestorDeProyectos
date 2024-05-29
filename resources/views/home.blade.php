@@ -233,6 +233,23 @@
         .chartjs-title {
             font-family: 'Montserrat', sans-serif;
         }
+        .tabla-usuarios {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .tabla-usuarios th, .tabla-usuarios td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .tabla-usuarios th {
+            background-color: #f2f2f2;
+            color: black;
+        }
+        .tabla-usuarios tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
@@ -285,17 +302,6 @@
                         </a>
                     </div>
                     <div class="columna-md-3">
-                        <a class="enlace-tarjeta" href="{{ route('usuarios.index') }}">
-                            <div class="tarjeta text-white bg-info mb-3">
-                                <div class="encabezado-tarjeta" style="border-bottom: none; border: none;">Usuarios</div>
-                                <div class="cuerpo-tarjeta">
-                                    <h5 class="card-title"><i class="fa fa-users" aria-hidden="true"></i></h5>
-                                    <p class="card-text">Ir al Módulo</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="columna-md-3">
                         <a class="enlace-tarjeta" href="{{ route('clientes.index') }}">
                             <div class="tarjeta text-white bg-secondary mb-3">
                                 <div class="encabezado-tarjeta" style="border-bottom: none; border: none;">Clientes</div>
@@ -339,9 +345,44 @@
                             </div>
                         </a>
                     </div>
+                    <div class="columna-md-3">
+                        <a class="enlace-tarjeta" href="{{ route('users.index') }}">
+                            <div class="tarjeta text-white bg-info mb-3">
+                                <div class="encabezado-tarjeta" style="border-bottom: none; border: none;">Usuarios</div>
+                                <div class="cuerpo-tarjeta">
+                                    <h5 class="card-title"><i class="fa fa-users" aria-hidden="true"></i></h5>
+                                    <p class="card-text">Ir al Módulo</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
                 <div class="contenedor-grafica">
                     <canvas id="myChart"></canvas>
+                </div>
+                <div class="tabla-usuarios">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Fecha de Creación</th>
+                            <th>Fecha de Actualización</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($users as $user)
+                            <tr>
+                                <td>{{ $user->id }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->created_at }}</td>
+                                <td>{{ $user->updated_at }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </main>
@@ -415,4 +456,3 @@
 
 </body>
 </html>
-
