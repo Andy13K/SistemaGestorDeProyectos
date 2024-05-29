@@ -13,7 +13,15 @@
                 <label for="descripcion">Descripción</label>
                 <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <div class="d-flex mt-3">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="{{ route('categorias.index') }}" class="btn btn-secondary ml-3">Regresar</a>
+            </div>
         </form>
     </div>
 @endsection
+<style>
+    .d-flex .btn-secondary {
+        margin-left: 30px; /* Ajusta este valor según sea necesario */
+    }
+</style>
