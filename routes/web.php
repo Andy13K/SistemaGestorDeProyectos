@@ -42,3 +42,4 @@ Route::get('/dashboard/data', [DashboardController::class, 'getData'])->name('da
 
 Route::resource('users', UserController::class);
 
+
