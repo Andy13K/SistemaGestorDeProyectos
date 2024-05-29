@@ -33,7 +33,10 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="{{ route('tareas.index') }}" class="btn btn-secondary" style="margin-left: 30px;">Regresar</a>
+            </div>
         </form>
     </div>
 @endsection
