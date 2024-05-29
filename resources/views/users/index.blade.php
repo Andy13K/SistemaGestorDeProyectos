@@ -19,11 +19,13 @@
         <div class="d-flex justify-content-center">
             <div class="table-responsive w-100">
                 <table class="table table-hover table-bordered table-striped text-center w-100">
-                    <thead class="thead-dark">
+                    <thead class="thead-light">
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Email</th>
+                        <th>Fecha de Creación</th>
+                        <th>Fecha de Actualización</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
@@ -33,6 +35,8 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->created_at }}</td>
+                            <td>{{ $user->updated_at }}</td>
                             <td>
                                 <a href="{{ route('users.show', $user->id) }}" class="btn btn-info btn-sm action-btn" title="Ver">
                                     <i class="fa fa-eye"></i>
@@ -71,11 +75,11 @@
             animation: slide-up 1s ease-out forwards, fade-in-table 1s ease-out forwards;
         }
         .table {
-            font-size: 1.2rem;
+            font-size: 1rem;
             width: 100%;
         }
         .tarjeta {
-            box-shadow: 0 4px 8px 0 rgb(250, 250, 250);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             width: 100%;
             font-family: 'Montserrat', sans-serif;
@@ -89,12 +93,12 @@
             animation-delay: 0.5s;
         }
         .tarjeta:hover {
-            box-shadow: 0 12px 24px 0 rgb(250, 250, 250);
+            box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.2);
             transform: translateY(-5px);
         }
-        .thead-dark {
-            background-color: white;
-            color: white;
+        .thead-light {
+            background-color: #f8f9fa;
+            color: #000;
         }
         .mr-3 {
             margin-right: 1.5rem;
