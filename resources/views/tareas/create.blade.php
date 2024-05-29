@@ -33,9 +33,9 @@
                     @endforeach
                 </select>
             </div>
-            <div class="mt-3 d-flex justify-content-between">
-                <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Guardar</button>
-                <a href="{{ route('tareas.index') }}" class="btn btn-secondary" style="margin-left: 10px;">Regresar</a>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="{{ route('tareas.index') }}" class="btn btn-secondary" style="margin-left: 30px;">Regresar</a>
             </div>
         </form>
     </div>

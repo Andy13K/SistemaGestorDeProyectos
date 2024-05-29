@@ -14,8 +14,14 @@
                 <label for="descripcion">Descripción</label>
                 <textarea class="form-control" id="descripcion" name="descripcion">{{ $categoria->descripcion }}</textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+                <a href="{{ route('categorias.index') }}" class="btn btn-secondary" style="margin-left: 30px;">Regresar</a>
+            </div>
         </form>
     </div>
 @endsection
+
+
+
 
