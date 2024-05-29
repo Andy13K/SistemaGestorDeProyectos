@@ -22,8 +22,10 @@
                 <label for="direccion">Dirección</label>
                 <textarea class="form-control" id="direccion" name="direccion">{{ $cliente->direccion }}</textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <div class="mt-3 d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Guardar</button>
+                <a href="{{ route('clientes.index') }}" class="btn btn-secondary" style="margin-left: 10px;">Regresar</a>
+            </div>
         </form>
     </div>
 @endsection
-

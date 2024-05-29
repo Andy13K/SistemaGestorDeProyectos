@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reporte;  // Importa correctamente el modelo
 use Illuminate\Http\Request;
 
 class ReporteController extends Controller
@@ -17,7 +18,7 @@ class ReporteController extends Controller
         return view('reportes.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'tipo_reporte' => 'required',
@@ -63,3 +64,4 @@ class ReporteController extends Controller
             ->with('success', 'Reporte eliminado con éxito.');
     }
 }
+
