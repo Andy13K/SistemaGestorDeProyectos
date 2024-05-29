@@ -502,10 +502,3 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2024-05-25 10:38:52
-mv database_dump.sql /ruta/de/tu/proyecto/database_dump.sql
-cd /ruta/de/tu/proyecto
-git add database_dump.sql
-git commit -m "Add database dump"
-git push origin main

@@ -13,7 +13,7 @@ class AsignacionRecurso extends Model
 
     protected $fillable = [
         'proyecto_id',
-        'usuario_id',
+        'user_id', // Cambiar de 'usuario_id' a 'user_id'
         'num_computadoras',
         'presupuesto',
         'fecha_limite',
@@ -24,8 +24,8 @@ class AsignacionRecurso extends Model
         return $this->belongsTo(Proyecto::class, 'proyecto_id');
     }
 
-    public function usuario()
+    public function user() // Cambiar de 'usuario' a 'user'
     {
-        return $this->belongsTo(Usuario::class, 'usuario_id');
+        return $this->belongsTo(User::class, 'user_id'); // Cambiar de 'usuario_id' a 'user_id'
     }
 }

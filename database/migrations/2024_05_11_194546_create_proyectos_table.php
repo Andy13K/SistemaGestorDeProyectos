@@ -12,7 +12,7 @@ class CreateProyectosTable extends Migration
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->text('descripcion');
-            $table->enum('categoria', ['software', 'redes', 'hardware', 'sistema ERP', 'sistema TVP']);
+            $table->unsignedBigInteger('categoria_id');
             $table->unsignedBigInteger('lider_id');
             $table->unsignedBigInteger('cliente_id');
             $table->timestamp('fecha')->useCurrent();
@@ -21,8 +21,9 @@ class CreateProyectosTable extends Migration
             $table->date('fecha_limite')->nullable();
             $table->timestamps();
 
+            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
             $table->foreign('lider_id')->references('id')->on('usuarios')->onDelete('cascade');
-            $table->foreign('cliente_id')->references('id')->on('usuarios')->onDelete('cascade');
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
         });
     }
 
@@ -31,4 +32,3 @@ class CreateProyectosTable extends Migration
         Schema::dropIfExists('proyectos');
     }
 }
-

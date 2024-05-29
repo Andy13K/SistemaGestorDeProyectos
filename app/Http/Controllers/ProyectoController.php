@@ -1,12 +1,13 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Proyecto;
 use App\Models\Categoria;
 use App\Models\Cliente;
-use App\Models\Usuario;
+use App\Models\User;
+use App\Models\Tarea; // Asegúrate de importar el modelo Tarea
+use Illuminate\Support\Facades\Hash;
 
 class ProyectoController extends Controller
 {
@@ -20,8 +21,8 @@ class ProyectoController extends Controller
     {
         $categorias = Categoria::all();
         $clientes = Cliente::all();
-        $usuarios = Usuario::all();
-        return view('proyectos.create', compact('categorias', 'clientes', 'usuarios'));
+        $users = User::all();
+        return view('proyectos.create', compact('categorias', 'clientes', 'users'));
     }
 
     public function store(Request $request)
@@ -30,7 +31,7 @@ class ProyectoController extends Controller
             'nombre' => 'required',
             'descripcion' => 'required',
             'categoria_id' => 'required|exists:categorias,id',
-            'lider_id' => 'required|exists:usuarios,id',
+            'lider_id' => 'required|exists:users,id',
             'cliente_id' => 'required|exists:clientes,id',
             'num_computadoras' => 'required|integer',
             'presupuesto' => 'required|numeric',
@@ -55,8 +56,8 @@ class ProyectoController extends Controller
     {
         $categorias = Categoria::all();
         $clientes = Cliente::all();
-        $usuarios = Usuario::all();
-        return view('proyectos.edit', compact('proyecto', 'categorias', 'clientes', 'usuarios'));
+        $users = User::all();
+        return view('proyectos.edit', compact('proyecto', 'categorias', 'clientes', 'users'));
     }
 
     public function update(Request $request, Proyecto $proyecto)
@@ -65,7 +66,7 @@ class ProyectoController extends Controller
             'nombre' => 'required',
             'descripcion' => 'required',
             'categoria_id' => 'required|exists:categorias,id',
-            'lider_id' => 'required|exists:usuarios,id',
+            'lider_id' => 'required|exists:users,id',
             'cliente_id' => 'required|exists:clientes,id',
             'num_computadoras' => 'required|integer',
             'presupuesto' => 'required|numeric',
@@ -80,8 +81,13 @@ class ProyectoController extends Controller
             ->with('success', 'Proyecto actualizado con éxito.');
     }
 
-    public function destroy(Proyecto $proyecto)
+    public function destroy($id)
     {
+        $proyecto = Proyecto::findOrFail($id);
+
+        // Eliminar todas las tareas asociadas al proyecto
+        Tarea::where('proyecto_id', $id)->delete();
+
         $proyecto->delete();
 
         return redirect()->route('proyectos.index')

@@ -15,9 +15,9 @@ class Proyecto extends Model
         'categoria_id',
         'lider_id',
         'cliente_id',
+        'fecha',
         'num_computadoras',
         'presupuesto',
-        'fecha',
         'fecha_limite',
     ];
 
@@ -28,12 +28,16 @@ class Proyecto extends Model
 
     public function lider()
     {
-        return $this->belongsTo(Usuario::class, 'lider_id');
+        return $this->belongsTo(User::class, 'lider_id');
     }
 
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
     }
-}
 
+    public function auditorias()
+    {
+        return $this->hasMany(Auditoria::class);
+    }
+}

@@ -44,7 +44,7 @@
                             <td>{{ $proyecto->nombre }}</td>
                             <td>{{ $proyecto->descripcion }}</td>
                             <td>{{ $proyecto->categoria->nombre ?? 'No asignado' }}</td>
-                            <td>{{ $proyecto->lider->nombre ?? 'No asignado' }}</td>
+                            <td>{{ $proyecto->lider->name ?? 'No asignado' }}</td>
                             <td>{{ $proyecto->cliente->nombre ?? 'No asignado' }}</td>
                             <td>{{ $proyecto->fecha }}</td>
                             <td>{{ $proyecto->num_computadoras }}</td>
@@ -55,8 +55,8 @@
                                 <a href="{{ route('proyectos.edit', $proyecto->id) }}" class="btn btn-warning btn-sm" title="Editar">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <!-- Formulario para eliminar el proyecto -->
-                                <form action="{{ route('proyectos.destroy', $proyecto->id) }}" method="POST" style="display:inline;">
+                                <!-- Botón para eliminar el proyecto -->
+                                <form action="{{ route('proyectos.destroy', $proyecto->id) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">

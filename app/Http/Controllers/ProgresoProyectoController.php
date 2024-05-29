@@ -2,66 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
+use App\Models\User;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 
-class ProgresoProyectoController extends Controller
+class ProyectoController extends Controller
 {
-    public function index()
-    {
-        $progresos = ProgresoProyecto::all();
-        return view('progresoproyectos.index', compact('progresos'));
-    }
-
     public function create()
     {
-        $proyectos = Proyecto::all();
-        return view('progresoproyectos.create', compact('proyectos'));
+        $categorias = Categoria::all();
+        $usuarios = User::all(); // Antes era Usuario::all()
+        $clientes = Cliente::all();
+
+        return view('proyectos.create', compact('categorias', 'usuarios', 'clientes'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'proyecto_id' => 'required|exists:proyectos,id',
-            'porcentaje' => 'required|numeric|min:0|max:100',
-            'descripcion' => 'nullable',
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+            'categoria_id' => 'required|exists:categorias,id',
+            'lider_id' => 'required|exists:users,id', // Antes era exists:usuarios,id
+            'cliente_id' => 'required|exists:clientes,id',
+            'num_computadoras' => 'required|integer',
+            'presupuesto' => 'required|numeric',
+            'fecha_limite' => 'nullable|date',
         ]);
 
-        ProgresoProyecto::create($request->all());
+        Proyecto::create($request->all());
 
-        return redirect()->route('progresoproyectos.index')
-            ->with('success', 'Progreso del proyecto registrado con éxito.');
-    }
-
-    public function show(ProgresoProyecto $progresoProyecto)
-    {
-        return view('progresoproyectos.show', compact('progresoProyecto'));
-    }
-
-    public function edit(ProgresoProyecto $progresoProyecto)
-    {
-        $proyectos = Proyecto::all();
-        return view('progresoproyectos.edit', compact('progresoProyecto', 'proyectos'));
-    }
-
-    public function update(Request $request, ProgresoProyecto $progresoProyecto)
-    {
-        $request->validate([
-            'proyecto_id' => 'required|exists:proyectos,id',
-            'porcentaje' => 'required|numeric|min:0|max:100',
-            'descripcion' => 'nullable',
-        ]);
-
-        $progresoProyecto->update($request->all());
-
-        return redirect()->route('progresoproyectos.index')
-            ->with('success', 'Progreso del proyecto actualizado con éxito.');
-    }
-
-    public function destroy(ProgresoProyecto $progresoProyecto)
-    {
-        $progresoProyecto->delete();
-
-        return redirect()->route('progresoproyectos.index')
-            ->with('success', 'Progreso del proyecto eliminado con éxito.');
+        return redirect()->route('proyectos.index')->with('success', 'Proyecto creado con éxito');
     }
 }

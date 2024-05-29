@@ -10,6 +10,7 @@ use App\Http\Controllers\ProgresoProyectoController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TareaController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProyectoController;
@@ -21,7 +22,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -39,3 +39,6 @@ Route::resource('roles', RoleController::class); // Añade esta línea si aún n
 Route::resource('tareas', TareaController::class); // Añade esta línea si aún no tienes la ruta para tareas
 
 Route::get('/dashboard/data', [DashboardController::class, 'getData'])->name('dashboard.data');
+
+Route::resource('users', UserController::class);
+

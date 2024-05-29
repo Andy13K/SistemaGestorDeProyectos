@@ -16,7 +16,7 @@
             <strong>Categoría:</strong> {{ $proyecto->categoria->nombre ?? 'No asignado' }}
         </div>
         <div>
-            <strong>Líder:</strong> {{ $proyecto->lider->nombre ?? 'No asignado' }}
+            <strong>Líder:</strong> {{ $proyecto->lider->name ?? 'No asignado' }} <!-- Cambiado a 'name' -->
         </div>
         <div>
             <strong>Cliente:</strong> {{ $proyecto->cliente->nombre ?? 'No asignado' }}
