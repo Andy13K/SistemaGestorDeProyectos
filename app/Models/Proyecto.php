@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -39,5 +38,10 @@ class Proyecto extends Model
     public function auditorias()
     {
         return $this->hasMany(Auditoria::class);
+    }
+
+    public function tareas()
+    {
+        return $this->hasMany(Tarea::class, 'proyecto_id');
     }
 }

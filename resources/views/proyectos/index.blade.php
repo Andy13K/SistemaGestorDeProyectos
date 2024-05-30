@@ -2,24 +2,15 @@
 
 @section('content')
     <div class="container-fluid contenido-principal">
-        <!-- Encabezado con título y botones alineados -->
         <div class="d-flex justify-content-between align-items-center mb-2">
-            <!-- Título de la página -->
             <h1 class="mb-0">Proyectos</h1>
-            <!-- Botones de acciones -->
             <div>
-                <!-- Botón para regresar a la página de inicio -->
                 <a href="{{ route('home') }}" class="btn btn-info">Regresar</a>
-                <!-- Botón para generar reportes -->
                 <a href="{{ route('reportes.index') }}" class="btn btn-secondary">Generar Reportes</a>
-                <!-- Botón para crear un nuevo proyecto -->
                 <a href="{{ route('proyectos.create') }}" class="btn btn-primary">Crear Proyecto</a>
             </div>
         </div>
-
-        <!-- Contenedor de la tabla centrado -->
         <div class="d-flex justify-content-center">
-            <!-- Tabla responsiva -->
             <div class="table-responsive w-90 tabla-animada">
                 <table class="table table-hover table-bordered table-striped text-center">
                     <thead class="thead-dark">
@@ -31,9 +22,10 @@
                         <th>Líder</th>
                         <th>Cliente</th>
                         <th>Fecha de Creación</th>
-                        <th>Número de Computadoras</th>
+                        <th>No. PC</th>
                         <th>Presupuesto</th>
                         <th>Fecha Límite</th>
+                        <th>Progreso</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
@@ -51,11 +43,27 @@
                             <td>{{ $proyecto->presupuesto }}</td>
                             <td>{{ $proyecto->fecha_limite }}</td>
                             <td>
-                                <!-- Botón para editar el proyecto -->
+                                <div class="progress" style="border: 1px solid black; position: relative; height: 30px;">
+                                    @php
+                                        $color = 'bg-danger';
+                                        if ($proyecto->porcentajeCompletado > 25) $color = 'bg-warning';
+                                        if ($proyecto->porcentajeCompletado > 50) $color = 'bg-info';
+                                        if ($proyecto->porcentajeCompletado > 75) $color = 'bg-success';
+                                    @endphp
+                                    <div class="progress-bar {{ $color }}" role="progressbar" style="width: {{ $proyecto->porcentajeCompletado }}%;" aria-valuenow="{{ $proyecto->porcentajeCompletado }}" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                    <span style="position: absolute; width: 100%; left: 0; top: 0; text-align: center; line-height: 30px; z-index: 1; color: black;">
+                                        {{ round($proyecto->porcentajeCompletado, 2) }}%
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="acciones">
+                                <a href="{{ route('proyectos.show', $proyecto->id) }}" class="btn btn-info btn-sm" title="Ver Progreso">
+                                    <i class="fa fa-eye"></i>
+                                </a>
                                 <a href="{{ route('proyectos.edit', $proyecto->id) }}" class="btn btn-warning btn-sm" title="Editar">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <!-- Botón para eliminar el proyecto -->
                                 <form action="{{ route('proyectos.destroy', $proyecto->id) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
@@ -72,106 +80,106 @@
         </div>
     </div>
 
-    <!-- Estilos personalizados -->
     <style>
-        /* Estilo del cuerpo de la página */
         body {
-            font-family: 'Montserrat', sans-serif; /* Fuente Montserrat */
-            background-color: whitesmoke; /* Fondo color blanco humo */
-            color: #4a5568; /* Color de texto */
-            margin: 0; /* Sin margen */
-            display: flex; /* Flexbox para centrar */
-            justify-content: center; /* Centrar horizontalmente */
-            align-items: center; /* Centrar verticalmente */
-            min-height: 100vh; /* Altura mínima de la ventana */
-            overflow: hidden; /* Evita el desplazamiento durante las animaciones */
+            font-family: 'Montserrat', sans-serif;
+            background-color: whitesmoke;
+            color: #4a5568;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
         }
-        /* Contenido principal */
         .contenido-principal {
             padding: 16px;
             width: 100%;
-            margin-top: 10px; /* Reduce la distancia desde el navbar */
-            opacity: 0; /* Asegura que comienza oculto */
-            animation: fade-in 1s ease-out forwards; /* Animación de aparición */
+            margin-top: 10px;
+            opacity: 0;
+            animation: fade-in 1s ease-out forwards;
         }
-        /* Tabla responsiva */
         .table-responsive {
-            width: 90%; /* Ancho de la tabla al 90% */
-            opacity: 0; /* Asegura que comienza oculto */
-            transform: translateY(50px); /* Comienza 50px debajo */
-            animation: slide-up 1s ease-out forwards, fade-in-table 1s ease-out forwards; /* Animaciones de deslizamiento y desvanecimiento */
+            width: 90%;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slide-up 1s ease-out forwards, fade-in-table 1s ease-out forwards;
         }
-        /* Fuente más pequeña para la tabla */
         .table {
-            font-size: 0.875rem; /* Tamaño de fuente reducido */
+            font-size: 0.875rem;
         }
-        /* Estilos de las filas de la tabla */
         .tarjeta {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Sombra de las filas */
-            transition: all 0.3s ease; /* Transición suave */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
             width: 100%;
             font-family: 'Montserrat', sans-serif;
             cursor: pointer;
-            height: auto; /* Altura auto para las filas */
-            border: none; /* Sin borde */
-            border-radius: 10px; /* Bordes redondeados */
-            background-color: #fff; /* Fondo blanco */
-            opacity: 0; /* Comienza oculto */
-            animation: slide-in-up 1s ease-out forwards, fade-in 1s ease-out forwards; /* Animaciones */
-            animation-delay: 0.5s; /* Retraso de la animación */
+            height: auto;
+            border: none;
+            border-radius: 10px;
+            background-color: #fff;
+            opacity: 0;
+            animation: slide-in-up 1s ease-out forwards, fade-in 1s ease-out forwards;
+            animation-delay: 0.5s;
         }
-        /* Efecto al pasar el cursor sobre las filas */
         .tarjeta:hover {
-            box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.3); /* Sombra más intensa */
-            transform: translateY(-5px); /* Elevar ligeramente */
+            box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
         }
-        /* Animación de deslizamiento hacia arriba para la tabla */
         @keyframes slide-up {
             from {
-                transform: translateY(50px); /* Comienza 50px debajo */
-                opacity: 0; /* Comienza transparente */
+                transform: translateY(50px);
+                opacity: 0;
             }
             to {
-                transform: translateY(0); /* Llega a su posición original */
-                opacity: 1; /* Totalmente opaco */
+                transform: translateY(0);
+                opacity: 1;
             }
         }
-        /* Animación de desvanecimiento para la tabla */
         @keyframes fade-in-table {
             from {
-                opacity: 0; /* Comienza transparente */
+                opacity: 0;
             }
             to {
-                opacity: 1; /* Totalmente opaco */
+                opacity: 1;
             }
         }
-        /* Animación de deslizamiento hacia arriba para las filas */
         @keyframes slide-in-up {
             from {
-                transform: translateY(50px); /* Comienza 50px debajo */
-                opacity: 0; /* Comienza transparente */
+                transform: translateY(50px);
+                opacity: 0;
             }
             to {
-                transform: translateY(0); /* Llega a su posición original */
-                opacity: 1; /* Totalmente opaco */
+                transform: translateY(0);
+                opacity: 1;
             }
         }
-        /* Animación de desvanecimiento */
         @keyframes fade-in {
             from {
-                opacity: 0; /* Comienza transparente */
+                opacity: 0;
             }
             to {
-                opacity: 1; /* Totalmente opaco */
+                opacity: 1;
             }
         }
-        /* Cambia el color de la tabla a un gris más oscuro */
         .table-striped > tbody > tr:nth-of-type(odd) {
-            background-color: rgba(0, 0, 0, 0.05); /* Ajusta el color de fondo de las filas impares */
+            background-color: rgba(0, 0, 0, 0.05);
         }
         .thead-dark {
-            background-color: #343a40; /* Color de fondo más oscuro para el encabezado */
-            color: white; /* Color del texto del encabezado */
+            background-color: #343a40;
+            color: white;
+        }
+        .acciones {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+        .acciones a, .acciones button {
+            display: inline-block;
+        }
+        .acciones form {
+            margin: 0;
         }
     </style>
 @endsection

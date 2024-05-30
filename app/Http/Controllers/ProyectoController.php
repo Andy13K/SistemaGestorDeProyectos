@@ -13,8 +13,30 @@ class ProyectoController extends Controller
 {
     public function index()
     {
-        $proyectos = Proyecto::with(['categoria', 'lider', 'cliente'])->get();
+        $proyectos = Proyecto::with(['categoria', 'lider', 'cliente', 'tareas'])->get();
+
+        foreach ($proyectos as $proyecto) {
+            $totalTareas = $proyecto->tareas->count();
+            $tareasCompletadas = $proyecto->tareas->where('estado', 'completada')->count();
+            $proyecto->porcentajeCompletado = $totalTareas > 0 ? ($tareasCompletadas / $totalTareas) * 100 : 0;
+        }
+
+        // Añadir depuración
+        // dd($proyectos->toArray());
+
         return view('proyectos.index', compact('proyectos'));
+    }
+
+
+
+
+    public function show(Proyecto $proyecto)
+    {
+        $totalTareas = $proyecto->tareas->count();
+        $tareasCompletadas = $proyecto->tareas->where('estado', 'completada')->count();
+        $proyecto->porcentajeCompletado = $totalTareas > 0 ? ($tareasCompletadas / $totalTareas) * 100 : 0;
+
+        return view('proyectos.show', compact('proyecto', 'totalTareas', 'tareasCompletadas'));
     }
 
     public function create()
@@ -45,11 +67,6 @@ class ProyectoController extends Controller
 
         return redirect()->route('proyectos.index')
             ->with('success', 'Proyecto creado con éxito.');
-    }
-
-    public function show(Proyecto $proyecto)
-    {
-        return view('proyectos.show', compact('proyecto'));
     }
 
     public function edit(Proyecto $proyecto)
