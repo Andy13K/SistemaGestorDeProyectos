@@ -3,34 +3,14 @@
 @section('content')
     <div class="container">
         <h1>Reportes</h1>
-        <a href="{{ route('reportes.create') }}" class="btn btn-primary">Crear Reporte</a>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tipo de Reporte</th>
-                <th>Fecha</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach ($reportes as $reporte)
-                <tr>
-                    <td>{{ $reporte->id }}</td>
-                    <td>{{ $reporte->tipo_reporte }}</td>
-                    <td>{{ $reporte->fecha }}</td>
-                    <td>
-                        <a href="{{ route('reportes.edit', $reporte->id) }}" class="btn btn-warning">Editar</a>
-                        <form action="{{ route('reportes.destroy', $reporte->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+        <div class="list-group">
+            <a href="{{ route('reportes.proyectos_por_fecha') }}" class="list-group-item list-group-item-action">Reporte de Proyectos por Fecha</a>
+            <a href="{{ route('reportes.proyectos_en_ejecucion') }}" class="list-group-item list-group-item-action">Reporte de Proyectos en Ejecución</a>
+            <a href="{{ route('reportes.proyectos_finalizados') }}" class="list-group-item list-group-item-action">Reporte de Proyectos Finalizados</a>
+            <a href="{{ route('reportes.proyectos_por_lider') }}" class="list-group-item list-group-item-action">Reporte de Proyectos por Líder</a>
+            <a href="{{ route('reportes.proyectos_por_cliente') }}" class="list-group-item list-group-item-action">Reporte de Proyectos por Cliente</a>
+        </div>
     </div>
 @endsection
+
 

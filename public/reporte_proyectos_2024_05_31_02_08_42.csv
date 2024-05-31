@@ -1,0 +1,5 @@
+ID,Nombre,Descripción,Categoría,Líder,Cliente,"Fecha de Creación","Fecha Límite","Número de Computadoras",Presupuesto
+1,"Proyecto Web","Desarrollo de una aplicación web","Desarrollo Web",Andy,"Cliente 3",2024-05-24,2024-12-31,10,10000.00
+12,"Proyecto Base de Datos","Base de datos para Miscelanea Elena","Desarrollo Web",Carlos,"Cliente 5",2024-05-30,2024-06-19,5,20000.00
+13,"Maquina Laragay",cochon,Hardware,Erick,"Cliente 2",2024-05-31,2024-06-01,5,120000.00
+14,Rakitic,gay,"Desarrollo Web",Gabriel,"Cliente 5",2024-05-31,2024-06-10,10,20000.00
