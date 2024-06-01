@@ -81,15 +81,13 @@ class TareaController extends Controller
             'archivo' => 'required|file',
         ]);
 
-        // Aquí puedes manejar la carga del archivo
-        // $archivo = $request->file('archivo')->store('archivos');
+        $archivo = $request->file('archivo')->store('archivos', 'public');
 
-        // Actualizar el estado de la tarea
         $tarea = Tarea::findOrFail($id);
         $tarea->estado = 'Entregado';
+        $tarea->archivo = $archivo; // Cambiar a 'archivo'
         $tarea->save();
 
-        // Verificar si el estado se actualizó correctamente
         if ($tarea->estado === 'Entregado') {
             return redirect()->route('tareas.index')->with('success', 'Tarea entregada con éxito.');
         } else {

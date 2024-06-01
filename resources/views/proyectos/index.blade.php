@@ -12,7 +12,7 @@
         </div>
         <div class="d-flex justify-content-center">
             <div class="table-responsive w-90 tabla-animada">
-                <table class="table table-hover table-bordered table-striped text-center small"> <!-- Agregado la clase small para reducir el tamaño de fuente -->
+                <table class="table table-hover table-bordered table-striped text-center small">
                     <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
@@ -43,7 +43,7 @@
                             <td>{{ $proyecto->num_computadoras }}</td>
                             <td>{{ $proyecto->presupuesto }}</td>
                             <td>{{ $proyecto->fecha_limite }}</td>
-                            <td>{{ abs($proyecto->dias_restantes) }}</td> <!-- Mostrar los días restantes como valor absoluto -->
+                            <td>{{ abs($proyecto->dias_restantes) }}</td>
                             <td>
                                 <div class="progress" style="border: 1px solid black; position: relative; height: 30px;">
                                     @php

@@ -6,7 +6,7 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-start">
                     <div>
-                        <h1 class="card-title">Sistema Mineduc</h1>
+                        <h1 class="card-title">{{ $tarea->nombre }}</h1>
                         <p class="card-text text-muted">Fecha de entrega: {{ $tarea->fecha_fin }}</p>
                         <div class="d-flex align-items-center mb-3">
                             <span class="badge {{ $tarea->estado == 'Entregado' ? 'bg-success' : 'bg-danger' }} me-2">{{ $tarea->estado }}</span>
@@ -44,7 +44,6 @@
         </div>
     </div>
 
-    <!-- Estilos personalizados -->
     <style>
         .card {
             background-color: #fff;
@@ -60,7 +59,7 @@
             background-color: #f9f9f9;
             cursor: pointer;
             max-width: 250px;
-            height: 250px;  /* Mantiene la altura anterior */
+            height: 250px;
             margin: 0 auto;
         }
         .upload-label {
@@ -74,8 +73,8 @@
             justify-content: center;
         }
         .upload-icon {
-            max-width: 100%;  /* Ajusta el tamaño de la imagen */
-            max-height: 100px;  /* Limita la altura de la imagen */
+            max-width: 100%;
+            max-height: 100px;
         }
         .form-control-file {
             display: none;
@@ -91,17 +90,8 @@
             border-color: #28a745;
         }
         .btn-dark {
-            background-color: #37f357; /* Verde oscuro */
+            background-color: #37f357;
             border-color: #7ff81b;
-        }
-        .d-flex.justify-content-center {
-            justify-content: center;
-        }
-        .d-flex.justify-content-center .btn {
-            margin-right: 10px;
-        }
-        .d-flex.justify-content-center .btn:last-child {
-            margin-right: 0;
         }
     </style>
 @endsection

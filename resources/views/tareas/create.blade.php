@@ -14,7 +14,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="estado">Estado</label>
-                            <input type="text" class="form-control" id="estado" name="estado" required>
+                            <input type="text" class="form-control" id="estado" name="estado" value="Activo" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="proyecto_id">Proyecto</label>
@@ -28,7 +28,7 @@
                     <div class="form-row d-flex justify-content-between mb-3">
                         <div class="form-group col-md-6">
                             <label for="fecha_inicio">Fecha Inicio</label>
-                            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio">
+                            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" value="{{ date('Y-m-d') }}" readonly>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="fecha_fin">Fecha Fin</label>

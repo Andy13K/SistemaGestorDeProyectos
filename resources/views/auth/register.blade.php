@@ -77,10 +77,8 @@
             font-size: 14px;
             font-family: 'Montserrat', sans-serif;
         }
-        .btn-primary {
+        .btn-primary, .btn-secondary {
             font-family: 'Montserrat', sans-serif;
-            background-color: #68d391;
-            color: #ffffff;
             padding: 15px 30px;
             border-radius: 5px;
             text-decoration: none;
@@ -88,14 +86,29 @@
             transition: background-color 0.3s, transform 0.3s, cursor 0.3s;
             border: none;
             font-size: 16px;
-            display: block;
-            margin: 20px auto;
+            display: inline-block;
+            margin: 20px 10px 0 10px;
+        }
+        .btn-primary {
+            background-color: #68d391;
+            color: #ffffff;
         }
         .btn-primary:hover {
             background-color: #48bb78;
             cursor: pointer;
         }
         .btn-primary:active {
+            transform: scale(0.95);
+        }
+        .btn-secondary {
+            background-color: #68d391;
+            color: #ffffff;
+        }
+        .btn-secondary:hover {
+            background-color: #48bb78;
+            cursor: pointer;
+        }
+        .btn-secondary:active {
             transform: scale(0.95);
         }
         @keyframes slide-in-up {
@@ -184,10 +197,9 @@
                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
             </div>
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">
-                    Registrarse
-                </button>
+            <div class="form-group d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Registrarse</button>
+                <a href="{{ url('/') }}" class="btn btn-secondary">Regresar</a>
             </div>
         </form>
     </div>
