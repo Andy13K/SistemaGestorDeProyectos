@@ -10,6 +10,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Fuentes -->
@@ -226,9 +227,10 @@
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            animation: fade-in 1s ease-out forwards;
-            animation-delay: 1s;
+            overflow-x: auto;  /* Agrega la barra de desplazamiento horizontal */
+        }
+        .grafica {
+            min-width: 600px;  /* Ajusta el ancho mínimo según tus necesidades */
         }
         .chartjs-title {
             font-family: 'Montserrat', sans-serif;
@@ -358,7 +360,9 @@
                     </div>
                 </div>
                 <div class="contenedor-grafica">
-                    <canvas id="myChart"></canvas>
+                    <div class="grafica">
+                        <canvas id="myChart"></canvas>
+                    </div>
                 </div>
             </div>
         </main>
@@ -418,9 +422,21 @@
                                     family: 'Montserrat',
                                     size: 20
                                 }
+                            },
+                            datalabels: {
+                                anchor: 'end',
+                                align: 'end',
+                                color: '#555',
+                                font: {
+                                    weight: 'bold'
+                                },
+                                formatter: function(value, context) {
+                                    return value;
+                                }
                             }
                         }
-                    }
+                    },
+                    plugins: [ChartDataLabels]
                 });
             },
             error: function() {
