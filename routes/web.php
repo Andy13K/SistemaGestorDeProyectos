@@ -6,7 +6,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProgresoDeProyectoController; // Renombrado
+use App\Http\Controllers\ProgresoProyectoController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TareaController;
@@ -21,15 +21,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Rutas de recursos
+
 Route::resource('clientes', ClienteController::class);
 Route::resource('usuarios', UsuarioController::class);
 Route::resource('proyectos', ProyectoController::class);
 Route::resource('asignacionrecursos', AsignacionRecursoController::class);
 Route::resource('auditorias', AuditoriaController::class);
-Route::resource('progresoproyectos', ProgresoDeProyectoController::class); // Renombrado
+Route::resource('progresoproyectos', ProgresoProyectoController::class);
 Route::resource('categorias', CategoriaController::class);
 Route::resource('roles', RoleController::class);
 Route::resource('tareas', TareaController::class);
@@ -48,18 +49,3 @@ Route::get('/reportes/proyectos_por_cliente', [ReporteController::class, 'proyec
 Route::get('/reportes/descargar_reporte_cliente', [ReporteController::class, 'descargarReporteCliente'])->name('reportes.descargar_reporte_cliente');
 Route::get('/reportes/generar', [ReporteController::class, 'generarReporte'])->name('reportes.generarReporte');
 Route::get('/reportes/descargar_reporte', [ReporteController::class, 'descargarReporte'])->name('reportes.descargar_reporte');
-
-// Rutas protegidas por rol
-Route::group(['middleware' => ['role:Administrador']], function () {
-    Route::get('/admin', 'AdminController@index');
-});
-
-// Rutas protegidas por permiso
-Route::group(['middleware' => ['permission:manage projects']], function () {
-    Route::get('/projects', 'ProjectController@index');
-});
-
-// Rutas adicionales para tareas
-
-Route::post('/tareas/{id}/upload', [TareaController::class, 'upload'])->name('tareas.upload');
-

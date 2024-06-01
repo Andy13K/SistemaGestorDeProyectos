@@ -1,105 +1,149 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container text-center mt-4">
-        <h1 class="text-success">Reportes</h1>
-        <br>
-        <div class="row justify-content-center">
-            <div class="col-md-2 mb-4">
-                <a href="{{ route('reportes.proyectos_por_fecha') }}" class="text-decoration-none">
-                    <div class="card text-white bg-primary">
-                        <div class="card-body">
-                            <h5 class="card-title">Proyectos por Fecha</h5>
-                            <p class="card-text">Ir al Módulo</p>
-                            <i class="fa fa-calendar fa-2x"></i>
+    <div class="container">
+        <h1 class="text-success" style="color: #28a745;">Reportes</h1>
+
+        <div class="contenedor">
+            <div class="fila">
+                <div class="columna-md-3">
+                    <a class="enlace-tarjeta" href="{{ route('reportes.proyectos_por_fecha') }}">
+                        <div class="tarjeta text-white bg-primary mb-3">
+                            <div class="encabezado-tarjeta" style="border-bottom: none; border: none;">Reporte de Proyectos por Fecha</div>
+                            <div class="cuerpo-tarjeta">
+                                <h5 class="card-title"><i class="fa fa-calendar" aria-hidden="true"></i></h5>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-2 mb-4">
-                <a href="{{ route('reportes.proyectos_en_ejecucion') }}" class="text-decoration-none">
-                    <div class="card text-white bg-success">
-                        <div class="card-body">
-                            <h5 class="card-title">Proyectos en Ejecución</h5>
-                            <p class="card-text">Ir al Módulo</p>
-                            <i class="fa fa-tasks fa-2x"></i>
+                    </a>
+                </div>
+                <div class="columna-md-3">
+                    <a class="enlace-tarjeta" href="{{ route('reportes.proyectos_en_ejecucion') }}">
+                        <div class="tarjeta text-white bg-success mb-3">
+                            <div class="encabezado-tarjeta" style="border-bottom: none; border: none;">Reporte de Proyectos en Ejecución</div>
+                            <div class="cuerpo-tarjeta">
+                                <h5 class="card-title"><i class="fa fa-tasks" aria-hidden="true"></i></h5>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-2 mb-4">
-                <a href="{{ route('reportes.proyectos_finalizados') }}" class="text-decoration-none">
-                    <div class="card text-white bg-danger">
-                        <div class="card-body">
-                            <h5 class="card-title">Proyectos Finalizados</h5>
-                            <p class="card-text">Ir al Módulo</p>
-                            <i class="fa fa-check fa-2x"></i>
+                    </a>
+                </div>
+                <div class="columna-md-3">
+                    <a class="enlace-tarjeta" href="{{ route('reportes.proyectos_finalizados') }}">
+                        <div class="tarjeta text-white bg-danger mb-3">
+                            <div class="encabezado-tarjeta" style="border-bottom: none; border: none;">Reporte de Proyectos Finalizados</div>
+                            <div class="cuerpo-tarjeta">
+                                <h5 class="card-title"><i class="fa fa-check" aria-hidden="true"></i></h5>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-2 mb-4">
-                <a href="{{ route('reportes.proyectos_por_lider') }}" class="text-decoration-none">
-                    <div class="card text-white bg-warning">
-                        <div class="card-body">
-                            <h5 class="card-title">Proyectos por Líder</h5>
-                            <p class="card-text">Ir al Módulo</p>
-                            <i class="fa fa-user fa-2x"></i>
+                    </a>
+                </div>
+                <div class="columna-md-3">
+                    <a class="enlace-tarjeta" href="{{ route('reportes.proyectos_por_lider') }}">
+                        <div class="tarjeta text-white bg-warning mb-3">
+                            <div class="encabezado-tarjeta" style="border-bottom: none; border: none;">Reporte de Proyectos por Líder</div>
+                            <div class="cuerpo-tarjeta">
+                                <h5 class="card-title"><i class="fa fa-user" aria-hidden="true"></i></h5>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-2 mb-4">
-                <a href="{{ route('reportes.proyectos_por_cliente') }}" class="text-decoration-none">
-                    <div class="card text-white bg-info">
-                        <div class="card-body">
-                            <h5 class="card-title">Proyectos por Cliente</h5>
-                            <p class="card-text">Ir al Módulo</p>
-                            <i class="fa fa-users fa-2x"></i>
+                    </a>
+                </div>
+                <div class="columna-md-3">
+                    <a class="enlace-tarjeta" href="{{ route('reportes.proyectos_por_cliente') }}">
+                        <div class="tarjeta text-white bg-info mb-3">
+                            <div class="encabezado-tarjeta" style="border-bottom: none; border: none;">Reporte de Proyectos por Cliente</div>
+                            <div class="cuerpo-tarjeta">
+                                <h5 class="card-title"><i class="fa fa-users" aria-hidden="true"></i></h5>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
         </div>
+
         <div class="d-flex justify-content-center mt-3">
-            <a href="{{ url()->previous() }}" class="btn btn-success">Regresar</a>
+            <a href="{{ url()->previous() }}" class="btn" style="background-color: #006400; color: white;">Regresar</a>
         </div>
     </div>
-@endsection
 
-@section('styles')
     <style>
-        .card {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: whitesmoke;
+            color: #4a5568;
+            margin: 0;
+            display: block;
+            min-height: 100vh;
+        }
+        .contenido-principal {
+            padding: 16px;
+            width: 100%;
+            margin-top: 50px;
+            opacity: 0;
+            animation: fade-in 1s ease-out forwards;
+        }
+        .tarjeta {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            height: 150px;
+            border: none;
             border-radius: 10px;
+            background-color: #fff;
+            opacity: 0;
+            animation: slide-in-up 1s ease-out forwards, fade-in 1s ease-out forwards;
+            animation-delay: 0.5s;
         }
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        .tarjeta:hover {
+            box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
         }
-        .card-body {
+        .encabezado-tarjeta {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: none;
+            padding: 15px 5px;
+        }
+        .cuerpo-tarjeta {
+            text-align: center;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 150px;
-            text-align: center;
+            height: 65%;
         }
-        .card-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+        .fila {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
         }
-        .card-text {
-            font-size: 1rem;
-            margin-bottom: 15px;
+        .columna-md-3 {
+            flex: 0 0 30%;
+            max-width: 30%;
+            margin: 10px;
+            box-sizing: border-box;
+            opacity: 0;
+            animation: slide-in-up 1s ease-out forwards, fade-in 1s ease-out forwards;
+            animation-delay: 0.5s;
         }
-        .fa-2x {
-            font-size: 2rem;
+        @keyframes slide-in-up {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
-        .btn-success {
-            background-color: #006400;
-            border-color: #006400;
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
     </style>
 @endsection
