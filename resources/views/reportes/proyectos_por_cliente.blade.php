@@ -2,35 +2,34 @@
 
 @section('content')
     <div class="container">
-        <h1>Proyectos por Cliente</h1>
+        <h1 style="color: #28a745;">Proyectos por Cliente</h1>
 
-        <form method="GET" action="{{ route('reportes.proyectos_por_cliente') }}">
-            <div class="form-group">
-                <label for="cliente_id">Cliente</label>
-                <select name="cliente_id" id="cliente_id" class="form-control">
-                    <option value="">Todos</option>
-                    @foreach($clientes as $cliente)
-                        <option value="{{ $cliente->id }}" {{ request('cliente_id') == $cliente->id ? 'selected' : '' }}>{{ $cliente->nombre }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="fecha_inicio">Fecha de Inicio:</label>
-                <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" value="{{ request('fecha_inicio') }}">
-            </div>
-            <div class="form-group">
-                <label for="fecha_fin">Fecha de Fin:</label>
-                <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" value="{{ request('fecha_fin') }}">
-            </div>
-            <button type="submit" class="btn btn-primary">Filtrar</button>
-        </form>
-
-        <form method="GET" action="{{ route('reportes.descargar_reporte_cliente') }}" style="margin-top: 20px;">
-            <input type="hidden" name="cliente_id" value="{{ request('cliente_id') }}">
-            <input type="hidden" name="fecha_inicio" value="{{ request('fecha_inicio') }}">
-            <input type="hidden" name="fecha_fin" value="{{ request('fecha_fin') }}">
-            <button type="submit" class="btn btn-secondary">Descargar Reporte</button>
-        </form>
+        <div class="card" style="border: 2px solid #28a745; padding: 20px;">
+            <form method="GET" action="{{ route('reportes.proyectos_por_cliente') }}">
+                <div class="form-group">
+                    <label for="cliente_id">Cliente</label>
+                    <select name="cliente_id" id="cliente_id" class="form-control">
+                        <option value="">Todos</option>
+                        @foreach($clientes as $cliente)
+                            <option value="{{ $cliente->id }}" {{ request('cliente_id') == $cliente->id ? 'selected' : '' }}>{{ $cliente->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fecha_inicio">Fecha de Inicio:</label>
+                    <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" value="{{ request('fecha_inicio') }}">
+                </div>
+                <div class="form-group">
+                    <label for="fecha_fin">Fecha de Fin:</label>
+                    <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" value="{{ request('fecha_fin') }}">
+                </div>
+                <div class="form-group d-flex justify-content-between">
+                    <button type="submit" class="btn" style="background-color: #28a745; color: white;">Filtrar</button>
+                    <button type="submit" formaction="{{ route('reportes.descargar_reporte_cliente') }}" class="btn" style="background-color: #1b5e20; color: white;">Descargar Reporte</button>
+                    <a href="{{ url()->previous() }}" class="btn" style="background-color: #006400; color: white;">Regresar</a>
+                </div>
+            </form>
+        </div>
 
         <div class="mt-4">
             @foreach($proyectos as $clienteId => $proyectosCliente)
