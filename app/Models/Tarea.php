@@ -10,16 +10,11 @@ class Tarea extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nombre',
-        'descripcion',
-        'estado',
-        'fecha_inicio',
-        'fecha_fin',
-        'proyecto_id',
+        'nombre', 'descripcion', 'estado', 'fecha_inicio', 'fecha_fin', 'proyecto_id', 'archivo'
     ];
 
     public function proyecto()
     {
-        return $this->belongsTo(Proyecto::class, 'proyecto_id');
+        return $this->belongsTo(Proyecto::class);
     }
 }

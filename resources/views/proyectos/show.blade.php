@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container">
-        <div class="card border-success" style="border: 2px solid #00c851;">
+        <div class="card border-success" style="border: 2px solid #37f357;">
             <div class="card-body">
-                <h1 class="card-title" style="color: #00c851;">Detalles del Proyecto</h1>
+                <h1 class="card-title" style="color: #37f357;">Detalles del Proyecto</h1>
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <strong>ID:</strong> {{ $proyecto->id }}
@@ -45,7 +45,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <h3 style="color: #00c851;">Progreso</h3>
+                        <h3 style="color: #37f357;">Progreso</h3>
                         <p>Total de Tareas: {{ $totalTareas }}</p>
                         <p>Tareas Completadas: {{ $tareasCompletadas }}</p>
                         <p>Porcentaje Completado: {{ round($proyecto->porcentajeCompletado, 2) }}%</p>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <a href="{{ route('proyectos.index') }}" class="btn btn-success" style="background-color: #00c851; border-color: #00c851;">Volver</a>
+                        <a href="{{ route('proyectos.index') }}" class="btn btn-custom-green" style="background-color: #37f357; border-color: #37f357;">Volver</a>
                     </div>
                 </div>
             </div>

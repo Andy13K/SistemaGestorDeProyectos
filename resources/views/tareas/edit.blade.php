@@ -37,6 +37,7 @@
             <div class="mt-3 d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Guardar</button>
                 <a href="{{ route('tareas.index') }}" class="btn btn-secondary" style="margin-left: 10px;">Regresar</a>
+                <a href="{{ route('tareas.show', $tarea->id) }}" class="btn btn-info" style="margin-left: 10px;">Ver Detalles</a>
             </div>
         </form>
     </div>

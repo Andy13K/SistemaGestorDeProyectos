@@ -44,4 +44,17 @@ class Proyecto extends Model
     {
         return $this->hasMany(Tarea::class, 'proyecto_id');
     }
+    // App\Models\Proyecto.php
+    public function calcularProgreso()
+    {
+        $totalTareas = $this->tareas->count();
+        $tareasCompletadas = $this->tareas->where('estado', 'Entregado')->count();
+
+        if ($totalTareas == 0) {
+            return 0;
+        }
+
+        return ($tareasCompletadas / $totalTareas) * 100;
+    }
+
 }
