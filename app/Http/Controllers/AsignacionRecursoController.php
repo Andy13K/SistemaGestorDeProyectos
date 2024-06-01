@@ -12,7 +12,8 @@ class AsignacionRecursoController extends Controller
     public function index()
     {
         $asignaciones = AsignacionRecurso::all();
-        return view('asignacionrecursos.index', compact('asignaciones'));
+        $proyectos = Proyecto::all(); // Obteniendo todos los proyectos
+        return view('asignacionrecursos.index', compact('asignaciones', 'proyectos')); // Pasando las variables a la vista
     }
 
     public function create()

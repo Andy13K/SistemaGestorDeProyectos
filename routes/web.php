@@ -49,3 +49,5 @@ Route::get('/reportes/proyectos_por_cliente', [ReporteController::class, 'proyec
 Route::get('/reportes/descargar_reporte_cliente', [ReporteController::class, 'descargarReporteCliente'])->name('reportes.descargar_reporte_cliente');
 Route::get('/reportes/generar', [ReporteController::class, 'generarReporte'])->name('reportes.generarReporte');
 Route::get('/reportes/descargar_reporte', [ReporteController::class, 'descargarReporte'])->name('reportes.descargar_reporte');
+
+

@@ -12,7 +12,7 @@
         </div>
         <div class="d-flex justify-content-center">
             <div class="table-responsive w-90 tabla-animada">
-                <table class="table table-hover table-bordered table-striped text-center">
+                <table class="table table-hover table-bordered table-striped text-center small"> <!-- Agregado la clase small para reducir el tamaño de fuente -->
                     <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
@@ -21,10 +21,11 @@
                         <th>Categoría</th>
                         <th>Líder</th>
                         <th>Cliente</th>
-                        <th>Fecha de Creación</th>
+                        <th>F.Creación</th>
                         <th>No. PC</th>
                         <th>Presupuesto</th>
-                        <th>Fecha Límite</th>
+                        <th>F. Límite</th>
+                        <th>D. Restantes</th>
                         <th>Progreso</th>
                         <th>Acciones</th>
                     </tr>
@@ -38,10 +39,11 @@
                             <td>{{ $proyecto->categoria->nombre ?? 'No asignado' }}</td>
                             <td>{{ $proyecto->lider->name ?? 'No asignado' }}</td>
                             <td>{{ $proyecto->cliente->nombre ?? 'No asignado' }}</td>
-                            <td>{{ $proyecto->fecha }}</td>
+                            <td>{{ $proyecto->created_at->format('Y-m-d') }}</td>
                             <td>{{ $proyecto->num_computadoras }}</td>
                             <td>{{ $proyecto->presupuesto }}</td>
                             <td>{{ $proyecto->fecha_limite }}</td>
+                            <td>{{ abs($proyecto->dias_restantes) }}</td> <!-- Mostrar los días restantes como valor absoluto -->
                             <td>
                                 <div class="progress" style="border: 1px solid black; position: relative; height: 30px;">
                                     @php
@@ -106,7 +108,7 @@
             animation: slide-up 1s ease-out forwards, fade-in-table 1s ease-out forwards;
         }
         .table {
-            font-size: 0.875rem;
+            font-size: 0.5rem; /* Tamaño de fuente de la tabla */
         }
         .tarjeta {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);

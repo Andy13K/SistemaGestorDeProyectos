@@ -45,17 +45,10 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label for="fecha">Fecha</label>
-                        <input type="date" name="fecha" id="fecha" class="form-control" required>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label for="num_computadoras">Número de Computadoras</label>
+                        <label for="num_computadoras">No. PC</label>
                         <input type="number" name="num_computadoras" id="num_computadoras" class="form-control" required min="0">
                     </div>
-                </div>
 
-                <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="presupuesto">Presupuesto</label>
                         <input type="number" name="presupuesto" id="presupuesto" class="form-control" required min="0" step="0.01">

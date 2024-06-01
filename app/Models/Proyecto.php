@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Proyecto extends Model
 {
@@ -14,7 +16,6 @@ class Proyecto extends Model
         'categoria_id',
         'lider_id',
         'cliente_id',
-        'fecha',
         'num_computadoras',
         'presupuesto',
         'fecha_limite',
@@ -44,4 +45,16 @@ class Proyecto extends Model
     {
         return $this->hasMany(Tarea::class, 'proyecto_id');
     }
+
+    // Accesor para calcular los días restantes
+    public function getDiasRestantesAttribute()
+    {
+        if (!$this->fecha_limite) {
+            return 'Sin fecha límite';
+        }
+        $fechaLimite = Carbon::parse($this->fecha_limite);
+        $fechaCreacion = Carbon::parse($this->created_at);
+        return $fechaLimite->diffInDays(Carbon::now(), false);
+    }
 }
+
