@@ -1,15 +1,12 @@
 <?php
-// App\Http\Controllers\ProyectoController.php
 
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Proyecto;
-use App\Models\Categoria;
-use App\Models\Cliente;
-use App\Models\User;
-use App\Models\Tarea;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ProyectosExport;
 
 class ProyectoController extends Controller
 {
@@ -55,7 +52,7 @@ class ProyectoController extends Controller
         ]);
 
         $data = $request->all();
-        $data['fecha'] = now();
+        $data['user_id'] = $data['lider_id']; // Asignar el mismo valor de lider_id a user_id
 
         Proyecto::create($data);
 
@@ -84,7 +81,8 @@ class ProyectoController extends Controller
             'fecha_limite' => 'nullable|date',
         ]);
 
-        $data = $request->except('fecha');
+        $data = $request->all();
+        $data['user_id'] = $data['lider_id']; // Asignar el mismo valor de lider_id a user_id
 
         $proyecto->update($data);
 
@@ -102,5 +100,42 @@ class ProyectoController extends Controller
 
         return redirect()->route('proyectos.index')
             ->with('success', 'Proyecto eliminado con éxito.');
+    }
+
+    public function proyectosFinalizados()
+    {
+        // Obtener los proyectos y calcular el progreso
+        $proyectos = Proyecto::with(['categoria', 'lider', 'cliente', 'tareas'])->get();
+
+        foreach ($proyectos as $proyecto) {
+            $porcentajeCompletado = $proyecto->calcularProgreso();
+
+            // Si el proyecto tiene 100% de progreso, actualizar su estado a 'finalizado'
+            if ($porcentajeCompletado == 100) {
+                $proyecto->status = 'finalizado';
+                $proyecto->save();
+            }
+        }
+
+        // Filtrar los proyectos que tienen el estado 'finalizado'
+        $proyectosFinalizados = Proyecto::where('status', 'finalizado')->get();
+
+        return view('reportes.proyectos_finalizados', compact('proyectosFinalizados'));
+    }
+
+
+
+
+    public function exportarProyectosFinalizados()
+    {
+        // Obtener los proyectos con 100% de progreso
+        $proyectos = Proyecto::with(['categoria', 'lider', 'cliente', 'tareas'])->get();
+
+        // Filtrar los proyectos que tienen 100% de progreso
+        $proyectos = $proyectos->filter(function ($proyecto) {
+            return $proyecto->calcularProgreso() == 100;
+        });
+
+        return Excel::download(new ProyectosExport($proyectos), 'proyectos_finalizados.xlsx');
     }
 }

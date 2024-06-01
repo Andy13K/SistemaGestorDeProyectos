@@ -39,7 +39,7 @@
                 </a>
             </div>
             <div class="col-md-2 mb-4">
-                <a href="{{ route('reportes.proyectos_por_lider') }}" class="text-decoration-none">
+                <a href="{{ route('reportes.proyectos_por_usuario') }}" class="text-decoration-none">
                     <div class="card text-white bg-warning">
                         <div class="card-body">
                             <h5 class="card-title">Proyectos por Líder</h5>

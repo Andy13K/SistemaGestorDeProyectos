@@ -1,8 +1,8 @@
 <?php
 
+
 namespace App\Exports;
 
-use App\Models\Proyecto;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -88,5 +88,3 @@ class ProyectosExport implements FromCollection, WithHeadings, WithMapping, With
         }
     }
 }
-
-

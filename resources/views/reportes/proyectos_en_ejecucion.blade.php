@@ -17,7 +17,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($proyectos as $proyecto)
+            @foreach($proyectosEnEjecucion as $proyecto)
                 <tr>
                     <td>{{ $proyecto->id }}</td>
                     <td>{{ $proyecto->nombre }}</td>

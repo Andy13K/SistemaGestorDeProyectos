@@ -21,10 +21,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Rutas de recursos
-
 Route::resource('clientes', ClienteController::class);
 Route::resource('usuarios', UsuarioController::class);
 Route::resource('proyectos', ProyectoController::class);
@@ -49,6 +48,11 @@ Route::get('/reportes/proyectos_por_cliente', [ReporteController::class, 'proyec
 Route::get('/reportes/descargar_reporte_cliente', [ReporteController::class, 'descargarReporteCliente'])->name('reportes.descargar_reporte_cliente');
 Route::get('/reportes/generar', [ReporteController::class, 'generarReporte'])->name('reportes.generarReporte');
 Route::get('/reportes/descargar_reporte', [ReporteController::class, 'descargarReporte'])->name('reportes.descargar_reporte');
+Route::get('/reportes/proyectos_por_usuario', [ReporteController::class, 'proyectosPorUsuario'])->name('reportes.proyectos_por_usuario');
+
+// Rutas para proyectos finalizados
+Route::get('/proyectos/finalizados', [ProyectoController::class, 'proyectosFinalizados'])->name('proyectos.finalizados');
+Route::get('/reportes/exportar_proyectos_finalizados', [ProyectoController::class, 'exportarProyectosFinalizados'])->name('reportes.exportar_proyectos_finalizados');
 
 
 Route::post('/tareas/{id}/upload', [TareaController::class, 'upload'])->name('tareas.upload');

@@ -74,40 +74,75 @@ class ReporteController extends Controller
 
     public function proyectosEnEjecucion()
     {
-        $proyectos = Proyecto::where('status', 'en ejecucion')->get();
+        // Obtener todos los proyectos y calcular el progreso
+        $proyectos = Proyecto::with(['categoria', 'lider', 'cliente', 'tareas'])->get();
 
-        return view('reportes.proyectos_en_ejecucion', compact('proyectos'));
+        // Filtrar los proyectos que no están al 100% completados
+        $proyectosEnEjecucion = $proyectos->filter(function ($proyecto) {
+            return $proyecto->calcularProgreso() < 100;
+        });
+
+        // Añadir el porcentaje completado a cada proyecto
+        $proyectosEnEjecucion->each(function ($proyecto) {
+            $proyecto->porcentajeCompletado = $proyecto->calcularProgreso();
+        });
+
+        return view('reportes.proyectos_en_ejecucion', compact('proyectosEnEjecucion'));
     }
+
+
+
 
     public function proyectosFinalizados()
     {
-        $proyectos = Proyecto::where('status', 'finalizado')->get();
+        // Obtener todos los proyectos y calcular el progreso
+        $proyectos = Proyecto::with(['categoria', 'lider', 'cliente', 'tareas'])->get();
 
-        return view('reportes.proyectos_finalizados', compact('proyectos'));
+        // Filtrar los proyectos que están al 100% completados
+        $proyectosFinalizados = $proyectos->filter(function ($proyecto) {
+            return $proyecto->calcularProgreso() == 100;
+        });
+
+        // Añadir el porcentaje completado a cada proyecto
+        $proyectosFinalizados->each(function ($proyecto) {
+            $proyecto->porcentajeCompletado = $proyecto->calcularProgreso();
+        });
+
+        return view('reportes.proyectos_finalizados', compact('proyectosFinalizados'));
     }
 
-    public function proyectosPorLider(Request $request)
-    {
-        // Obtener todos los líderes para el filtro desde la tabla `users`
-        $users = User::where('role', 'líder de proyecto')->get();
 
-        // Obtener los proyectos filtrados por líder y rango de fechas si se proporcionan
+
+
+
+
+    public function proyectosPorUsuario(Request $request)
+    {
+        // Obtener todos los usuarios para el filtro desde la tabla `users`
+        $users = User::all();
+
+        // Obtener los proyectos filtrados por usuario y rango de fechas si se proporcionan
         $proyectos = Proyecto::query();
 
-        if ($request->filled('lider_id')) {
-            $proyectos->where('lider_id', $request->lider_id);
+        if ($request->filled('usuario_id')) {
+            $proyectos->where('user_id', $request->usuario_id);
         }
 
         if ($request->filled('fecha_inicio') && $request->filled('fecha_fin')) {
             $fechaInicio = Carbon::parse($request->fecha_inicio)->startOfDay();
             $fechaFin = Carbon::parse($request->fecha_fin)->endOfDay();
-            $proyectos->whereBetween('fecha', [$fechaInicio, $fechaFin]);
+            $proyectos->whereBetween('created_at', [$fechaInicio, $fechaFin]);
         }
 
-        $proyectos = $proyectos->get()->groupBy('lider_id');
+        $proyectos = $proyectos->get()->groupBy('user_id');
 
-        return view('reportes.proyectos_por_lider', compact('proyectos', 'users'));
+        return view('reportes.proyectos_por_usuario', compact('proyectos', 'users'));
     }
+
+
+
+
+
 
     public function descargarReporte(Request $request)
     {
@@ -121,7 +156,7 @@ class ReporteController extends Controller
         if ($request->filled('fecha_inicio') && $request->filled('fecha_fin')) {
             $fechaInicio = Carbon::parse($request->fecha_inicio)->startOfDay();
             $fechaFin = Carbon::parse($request->fecha_fin)->endOfDay();
-            $proyectos->whereBetween('fecha', [$fechaInicio, $fechaFin]);
+            $proyectos->whereBetween('created_at', [$fechaInicio, $fechaFin]);
         }
 
         $proyectos = $proyectos->get();
@@ -132,11 +167,14 @@ class ReporteController extends Controller
 
 
 
+
     public function generarReporte()
     {
         $lideres = Usuario::where('rol', 'líder de proyecto')->get();
         return view('reportes.reporte_lideres', ['lideres' => $lideres]);
     }
+
+
 
 }
 
