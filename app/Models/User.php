@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     protected $table = 'users';
 
@@ -16,7 +17,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        'role', // Puedes remover 'role' si no lo necesitas directamente en el modelo
     ];
 
     protected $hidden = [
@@ -34,6 +35,3 @@ class User extends Authenticatable
         return $this->belongsToMany(Proyecto::class, 'asignacionrecursos', 'user_id', 'proyecto_id');
     }
 }
-
-
-

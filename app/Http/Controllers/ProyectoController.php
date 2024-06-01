@@ -1,4 +1,6 @@
 <?php
+// App\Http\Controllers\ProyectoController.php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -6,8 +8,7 @@ use App\Models\Proyecto;
 use App\Models\Categoria;
 use App\Models\Cliente;
 use App\Models\User;
-use App\Models\Tarea; // Asegúrate de importar el modelo Tarea
-use Illuminate\Support\Facades\Hash;
+use App\Models\Tarea;
 
 class ProyectoController extends Controller
 {
@@ -16,25 +17,17 @@ class ProyectoController extends Controller
         $proyectos = Proyecto::with(['categoria', 'lider', 'cliente', 'tareas'])->get();
 
         foreach ($proyectos as $proyecto) {
-            $totalTareas = $proyecto->tareas->count();
-            $tareasCompletadas = $proyecto->tareas->where('estado', 'completada')->count();
-            $proyecto->porcentajeCompletado = $totalTareas > 0 ? ($tareasCompletadas / $totalTareas) * 100 : 0;
+            $proyecto->porcentajeCompletado = $proyecto->calcularProgreso();
         }
-
-        // Añadir depuración
-        // dd($proyectos->toArray());
 
         return view('proyectos.index', compact('proyectos'));
     }
 
-
-
-
     public function show(Proyecto $proyecto)
     {
+        $proyecto->porcentajeCompletado = $proyecto->calcularProgreso();
         $totalTareas = $proyecto->tareas->count();
-        $tareasCompletadas = $proyecto->tareas->where('estado', 'completada')->count();
-        $proyecto->porcentajeCompletado = $totalTareas > 0 ? ($tareasCompletadas / $totalTareas) * 100 : 0;
+        $tareasCompletadas = $proyecto->tareas->where('estado', 'Entregado')->count();
 
         return view('proyectos.show', compact('proyecto', 'totalTareas', 'tareasCompletadas'));
     }
@@ -61,7 +54,7 @@ class ProyectoController extends Controller
         ]);
 
         $data = $request->all();
-        $data['fecha'] = now(); // Establecer la fecha actual
+        $data['fecha'] = now();
 
         Proyecto::create($data);
 
@@ -90,7 +83,7 @@ class ProyectoController extends Controller
             'fecha_limite' => 'nullable|date',
         ]);
 
-        $data = $request->except('fecha'); // Excluir la fecha del request
+        $data = $request->except('fecha');
 
         $proyecto->update($data);
 
@@ -102,7 +95,6 @@ class ProyectoController extends Controller
     {
         $proyecto = Proyecto::findOrFail($id);
 
-        // Eliminar todas las tareas asociadas al proyecto
         Tarea::where('proyecto_id', $id)->delete();
 
         $proyecto->delete();

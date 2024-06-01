@@ -9,149 +9,74 @@
                 <a href="{{ route('tareas.create') }}" class="btn btn-primary">Crear Tarea</a>
             </div>
         </div>
-        <div class="table-responsive w-90 tabla-animada">
-            <table class="table table-hover table-bordered table-striped text-center">
-                <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Estado</th>
-                    <th>Fecha Inicio</th>
-                    <th>Fecha Fin</th>
-                    <th>Proyecto</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($tareas as $tarea)
-                    <tr class="tarjeta">
-                        <td>{{ $tarea->id }}</td>
-                        <td>{{ $tarea->nombre }}</td>
-                        <td>{{ $tarea->descripcion }}</td>
-                        <td>{{ $tarea->estado }}</td>
-                        <td>{{ $tarea->fecha_inicio }}</td>
-                        <td>{{ $tarea->fecha_fin }}</td>
-                        <td>{{ $tarea->proyecto->nombre }}</td>
-                        <td>
-                            <a href="{{ route('tareas.edit', $tarea->id) }}" class="btn btn-warning btn-sm" title="Editar">
-                                <i class="fa fa-edit"></i>
+        <div class="accordion" id="accordionTareas">
+            @foreach ($tareas as $tarea)
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center" id="heading{{ $tarea->id }}">
+                        <h2 class="mb-0">
+                            <a href="{{ route('tareas.show', $tarea->id) }}" class="btn btn-link btn-block text-left">
+                                {{ $tarea->nombre }}
+                                <span class="text-muted">- Disponible hasta {{ $tarea->fecha_fin }} | Fecha de entrega {{ $tarea->fecha_fin }}</span>
                             </a>
-                            <form action="{{ route('tareas.destroy', $tarea->id) }}" method="POST" style="display:inline;">
+                        </h2>
+                        <div class="d-flex align-items-center">
+                            <form action="{{ route('tareas.destroy', $tarea->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta tarea?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
-                                    <i class="fa fa-trash"></i>
-                                </button>
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                             </form>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 
     <!-- Estilos personalizados -->
     <style>
-        /* Estilo del cuerpo de la página */
         body {
-            font-family: 'Montserrat', sans-serif; /* Fuente Montserrat */
-            background-color: whitesmoke; /* Fondo color blanco humo */
-            color: #4a5568; /* Color de texto */
-            margin: 0; /* Sin margen */
-            display: flex; /* Flexbox para centrar */
-            justify-content: center; /* Centrar horizontalmente */
-            align-items: center; /* Centrar verticalmente */
-            min-height: 100vh; /* Altura mínima de la ventana */
-            overflow: hidden; /* Evita el desplazamiento durante las animaciones */
+            font-family: 'Montserrat', sans-serif;
+            background-color: whitesmoke;
+            color: #4a5568;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
         }
-        /* Contenido principal */
         .contenido-principal {
             padding: 16px;
             width: 100%;
-            margin-top: 10px; /* Reduce la distancia desde el navbar */
-            opacity: 0; /* Asegura que comienza oculto */
-            animation: fade-in 1s ease-out forwards; /* Animación de aparición */
+            margin-top: 10px;
+            opacity: 0;
+            animation: fade-in 1s ease-out forwards;
         }
-        /* Tabla responsiva */
-        .table-responsive {
-            width: 90%; /* Ancho de la tabla al 90% */
-            opacity: 0; /* Asegura que comienza oculto */
-            transform: translateY(50px); /* Comienza 50px debajo */
-            animation: slide-up 1s ease-out forwards, fade-in-table 1s ease-out forwards; /* Animaciones de deslizamiento y desvanecimiento */
+        .accordion .card {
+            margin-bottom: 1rem;
         }
-        /* Fuente más pequeña para la tabla */
-        .table {
-            font-size: 0.875rem; /* Tamaño de fuente reducido */
+        .accordion .card-header {
+            background-color: #f8f9fa;
         }
-        /* Estilos de las filas de la tabla */
-        .tarjeta {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Sombra de las filas */
-            transition: all 0.3s ease; /* Transición suave */
-            width: 100%;
-            font-family: 'Montserrat', sans-serif;
-            cursor: pointer;
-            height: auto; /* Altura auto para las filas */
-            border: none; /* Sin borde */
-            border-radius: 10px; /* Bordes redondeados */
-            background-color: #fff; /* Fondo blanco */
-            opacity: 0; /* Comienza oculto */
-            animation: slide-in-up 1s ease-out forwards, fade-in 1s ease-out forwards; /* Animaciones */
-            animation-delay: 0.5s; /* Retraso de la animación */
+        .btn-link {
+            color: #007bff;
+            text-decoration: none;
         }
-        /* Efecto al pasar el cursor sobre las filas */
-        .tarjeta:hover {
-            box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.3); /* Sombra más intensa */
-            transform: translateY(-5px); /* Elevar ligeramente */
+        .text-muted {
+            color: #6c757d;
         }
-        /* Animación de deslizamiento hacia arriba para la tabla */
-        @keyframes slide-up {
-            from {
-                transform: translateY(50px); /* Comienza 50px debajo */
-                opacity: 0; /* Comienza transparente */
-            }
-            to {
-                transform: translateY(0); /* Llega a su posición original */
-                opacity: 1; /* Totalmente opaco */
-            }
-        }
-        /* Animación de desvanecimiento para la tabla */
-        @keyframes fade-in-table {
-            from {
-                opacity: 0; /* Comienza transparente */
-            }
-            to {
-                opacity: 1; /* Totalmente opaco */
-            }
-        }
-        /* Animación de deslizamiento hacia arriba para las filas */
-        @keyframes slide-in-up {
-            from {
-                transform: translateY(50px); /* Comienza 50px debajo */
-                opacity: 0; /* Comienza transparente */
-            }
-            to {
-                transform: translateY(0); /* Llega a su posición original */
-                opacity: 1; /* Totalmente opaco */
-            }
-        }
-        /* Animación de desvanecimiento */
         @keyframes fade-in {
             from {
-                opacity: 0; /* Comienza transparente */
+                opacity: 0;
             }
             to {
-                opacity: 1; /* Totalmente opaco */
+                opacity: 1;
             }
         }
-        /* Cambia el color de la tabla a un gris más oscuro */
-        .table-striped > tbody > tr:nth-of-type(odd) {
-            background-color: rgba(0, 0, 0, 0.05); /* Ajusta el color de fondo de las filas impares */
-        }
-        .thead-dark {
-            background-color: #343a40; /* Color de fondo más oscuro para el encabezado */
-            color: white; /* Color del texto del encabezado */
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
         }
     </style>
 @endsection
