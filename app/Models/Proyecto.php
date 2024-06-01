@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,11 +15,13 @@ class Proyecto extends Model
         'categoria_id',
         'lider_id',
         'cliente_id',
-        'fecha',
         'num_computadoras',
         'presupuesto',
         'fecha_limite',
+        'user_id',
+        'status',  // Asegúrate de tener este campo
     ];
+
 
     public function categoria()
     {
@@ -42,6 +43,11 @@ class Proyecto extends Model
         return $this->hasMany(Tarea::class, 'proyecto_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function calcularProgreso()
     {
         $totalTareas = $this->tareas()->count();
@@ -53,5 +59,8 @@ class Proyecto extends Model
 
         return ($tareasCompletadas / $totalTareas) * 100;
     }
-}
 
+
+
+
+}
