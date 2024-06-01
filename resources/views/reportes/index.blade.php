@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center mt-3">
-            <a href="{{ url()->previous() }}" class="btn btn-success">Regresar</a>
+            <a href="{{ route('proyectos.index') }}" class="btn btn-success">Regresar</a>
         </div>
     </div>
 @endsection

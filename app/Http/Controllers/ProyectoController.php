@@ -1,10 +1,13 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Proyecto;
+use App\Models\Categoria; // Importar la clase Categoria
+use App\Models\Cliente; // Importar la clase Cliente
+use App\Models\User; // Importar la clase User
+use App\Models\Tarea; // Importar la clase Tarea
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ProyectosExport;
 
@@ -122,9 +125,6 @@ class ProyectoController extends Controller
 
         return view('reportes.proyectos_finalizados', compact('proyectosFinalizados'));
     }
-
-
-
 
     public function exportarProyectosFinalizados()
     {
